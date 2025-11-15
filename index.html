@@ -29,13 +29,25 @@
             line-height: 1.6;
         }
 
+        /* Add background image option */
+        .header-with-bg {
+            background: 
+                linear-gradient(rgba(203, 165, 213, 0.8), rgba(167, 148, 197, 0.8)),
+                url('images/background.jpg') center/cover;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
         .container {
             display: grid;
             grid-template-columns: 250px 1fr;
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .sidebar {
             background: var(--sidebar);
             padding: 2rem 1rem;
@@ -43,11 +55,14 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text);
-            margin-bottom: 2rem;
             text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-img {
+            max-width: 120px;
+            height: auto;
+            border-radius: 8px;
         }
 
         .nav-links {
@@ -71,17 +86,8 @@
             background: var(--accent);
         }
 
-        /* Main Content */
         .main-content {
             padding: 2rem;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            border: 1px solid var(--dark-purple);
         }
 
         .card {
@@ -122,11 +128,11 @@
             box-shadow: 0 4px 12px rgba(135, 95, 165, 0.3);
         }
 
-        /* Character Grid */
+        /* Character Grid with Images */
         .character-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
             margin-top: 2rem;
         }
 
@@ -136,6 +142,20 @@
             padding: 1rem;
             text-align: center;
             border: 1px solid var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .character-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--secondary);
         }
 
         @media (max-width: 768px) {
@@ -152,7 +172,10 @@
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="logo">HSR Theme</div>
+            <div class="logo">
+                <!-- Add your logo image -->
+                <img src="images/logo.jpg" alt="HSR Logo" class="logo-img">
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#characters">Characters</a></li>
@@ -164,7 +187,8 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <header class="header">
+            <!-- Header with background image -->
+            <header class="header-with-bg">
                 <h1>Honkai: Star Rail Universe</h1>
                 <p>Explore the cosmos aboard the Astral Express</p>
             </header>
@@ -186,14 +210,17 @@
                 <h2>Featured Characters</h2>
                 <div class="character-grid">
                     <div class="character-card">
+                        <img src="images/characters/kafka.jpg" alt="Kafka" class="character-img">
                         <h3>Kafka</h3>
                         <p>Stellaron Hunter</p>
                     </div>
                     <div class="character-card">
+                        <img src="images/characters/silver-wolf.jpg" alt="Silver Wolf" class="character-img">
                         <h3>Silver Wolf</h3>
                         <p>Quantum Hacker</p>
                     </div>
                     <div class="character-card">
+                        <img src="images/characters/blade.jpg" alt="Blade" class="character-img">
                         <h3>Blade</h3>
                         <p>Stellaron Hunter</p>
                     </div>
