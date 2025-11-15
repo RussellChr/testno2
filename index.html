@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honkai: Star Rail Theme</title>
+    <style>
+        :root {
+            --background: #e3d6e7;
+            --sidebar: #ccbdd1;
+            --primary: #cba5d5;
+            --secondary: #a794c5;
+            --accent: #bb99d5;
+            --dark-purple: #875fa5;
+            --text: #28183a;
+            --terminal: #d4b3e8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--sidebar);
+            padding: 2rem 1rem;
+            border-right: 2px solid var(--primary);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 1rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: var(--accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--dark-purple);
+        }
+
+        .card {
+            background: rgba(203, 165, 213, 0.3);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal {
+            background: var(--terminal);
+            border: 1px solid var(--dark-purple);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+        }
+
+        .terminal-line {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--secondary), var(--dark-purple));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(135, 95, 165, 0.3);
+        }
+
+        /* Character Grid */
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .character-card {
+            background: var(--accent);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">HSR Theme</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#characters">Characters</a></li>
+                <li><a href="#guides">Guides</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Honkai: Star Rail Universe</h1>
+                <p>Explore the cosmos aboard the Astral Express</p>
+            </header>
+
+            <section class="card">
+                <h2>Welcome to the Express</h2>
+                <p>This theme uses the same color palette as your VS Code theme, adapted for a website.</p>
+                
+                <div class="terminal">
+                    <div class="terminal-line">$ Welcome aboard, Trailblazer!</div>
+                    <div class="terminal-line">$ Destination: Your GitHub Pages Site</div>
+                    <div class="terminal-line">$ Status: Ready for adventure</div>
+                </div>
+
+                <button class="btn">Begin Journey</button>
+            </section>
+
+            <section class="card">
+                <h2>Featured Characters</h2>
+                <div class="character-grid">
+                    <div class="character-card">
+                        <h3>Kafka</h3>
+                        <p>Stellaron Hunter</p>
+                    </div>
+                    <div class="character-card">
+                        <h3>Silver Wolf</h3>
+                        <p>Quantum Hacker</p>
+                    </div>
+                    <div class="character-card">
+                        <h3>Blade</h3>
+                        <p>Stellaron Hunter</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
