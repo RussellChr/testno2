@@ -3,917 +3,592 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Data & AI Challenges Quiz</title>
+    <title>Big Data & Connectionist AI Challenge Quiz</title>
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             background-color: #f5f7fa;
-            color: #333;
+            color: var(--dark-color);
             line-height: 1.6;
-            padding: 20px;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            padding: 20px;
         }
         
         header {
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, #2c3e50, #3498db);
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         h1 {
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            font-size: 2.2rem;
         }
         
-        .description {
-            font-size: 1.1rem;
+        .subtitle {
+            font-size: 1.2rem;
             opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
         }
         
-        .quiz-selection {
+        .quiz-section {
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quiz-section.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-color);
+        }
+        
+        .nav-buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 30px;
-            background-color: #ecf0f1;
+            gap: 15px;
+            margin-bottom: 30px;
         }
         
-        .quiz-option {
-            flex: 1;
-            max-width: 300px;
-            padding: 30px 20px;
-            background-color: white;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid transparent;
-        }
-        
-        .quiz-option:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-            border-color: #3498db;
-        }
-        
-        .quiz-option h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .quiz-option p {
-            color: #7f8c8d;
-            margin-bottom: 20px;
-        }
-        
-        .quiz-btn {
-            padding: 10px 20px;
-            background-color: #3498db;
+        .nav-btn {
+            padding: 12px 25px;
+            background-color: var(--secondary-color);
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
-        .quiz-btn:hover {
-            background-color: #2980b9;
+        .nav-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
         }
         
-        .quiz-container {
-            padding: 30px;
-            display: none;
+        .nav-btn.active {
+            background-color: var(--primary-color);
         }
         
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        
-        .quiz-title {
-            color: #2c3e50;
-            font-size: 1.5rem;
-        }
-        
-        .question-counter {
-            color: #7f8c8d;
-            font-weight: 500;
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background-color: #ecf0f1;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .progress {
-            height: 100%;
-            background-color: #3498db;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .question-container {
-            background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 25px;
+        .question {
             margin-bottom: 25px;
-            border-radius: 0 8px 8px 0;
-            display: none;
-        }
-        
-        .question-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .question-number {
-            font-weight: bold;
-            color: #3498db;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: var(--light-color);
         }
         
         .question-text {
-            margin-bottom: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
             font-size: 1.1rem;
-            line-height: 1.5;
         }
         
         .options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         
         .option {
-            display: flex;
-            align-items: flex-start;
-            padding: 15px;
-            background-color: white;
+            padding: 10px 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
+            transition: all 0.2s ease;
         }
         
         .option:hover {
-            background-color: #f1f8ff;
-            border-color: #3498db;
+            background-color: #e3f2fd;
+            border-color: var(--secondary-color);
         }
         
         .option.selected {
-            background-color: #e1f0fa;
-            border-color: #3498db;
+            background-color: #bbdefb;
+            border-color: var(--secondary-color);
         }
         
         .option.correct {
-            background-color: #d4edda;
-            border-color: #28a745;
+            background-color: #c8e6c9;
+            border-color: var(--success-color);
         }
         
         .option.incorrect {
-            background-color: #f8d7da;
-            border-color: #dc3545;
-        }
-        
-        .option input {
-            margin-right: 10px;
-            margin-top: 3px;
+            background-color: #ffcdd2;
+            border-color: var(--accent-color);
         }
         
         .short-answer {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             margin-top: 10px;
-            font-size: 1rem;
-            min-height: 100px;
             resize: vertical;
+            min-height: 80px;
         }
         
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .nav-btn {
-            padding: 10px 20px;
-            background-color: #3498db;
+        .submit-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background-color: var(--success-color);
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
         
-        .nav-btn:hover {
-            background-color: #2980b9;
+        .submit-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
         }
         
-        .nav-btn.hidden {
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #e8f5e9;
             display: none;
         }
         
-        .score-container {
-            text-align: center;
-            margin-top: 30px;
-            padding: 25px;
-            background-color: #ecf0f1;
-            border-radius: 5px;
-            display: none;
-            animation: fadeIn 0.5s ease;
+        .results.show {
+            display: block;
         }
         
         .score {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
             margin-bottom: 15px;
+            color: var(--success-color);
         }
         
-        .score-message {
-            font-size: 1.1rem;
-            color: #7f8c8d;
-            margin-bottom: 20px;
-        }
-        
-        .back-to-selection {
-            display: block;
-            width: 200px;
-            margin: 20px auto 0;
-            padding: 10px;
-            background-color: #7f8c8d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-        
-        .back-to-selection:hover {
-            background-color: #636e72;
-        }
-        
-        .true-false-options {
-            display: flex;
-            gap: 15px;
+        .feedback {
             margin-top: 10px;
-        }
-        
-        .true-false-btn {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #ddd;
+            padding: 10px;
             border-radius: 5px;
-            cursor: pointer;
-            background-color: white;
-            transition: all 0.2s;
+            background-color: #fff3cd;
+            border-left: 4px solid var(--warning-color);
         }
         
-        .true-false-btn:hover {
-            background-color: #f1f8ff;
-            border-color: #3498db;
+        .feedback.correct {
+            background-color: #d1edff;
+            border-left-color: var(--secondary-color);
         }
         
-        .true-false-btn.selected {
-            background-color: #3498db;
-            color: white;
-            border-color: #3498db;
+        .explanation {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
         }
         
-        .true-false-btn.correct {
-            background-color: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
-        
-        .true-false-btn.incorrect {
-            background-color: #f8d7da;
-            border-color: #dc3545;
-            color: #721c24;
-        }
-        
-        .answer-feedback {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 5px;
-            display: none;
-        }
-        
-        .answer-feedback.correct {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-        }
-        
-        .answer-feedback.incorrect {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Big Data & AI Challenges Quiz</h1>
-            <p class="description">Test your knowledge on Big Data Security & Ethics and Connectionist AI Challenges</p>
+            <h1>Big Data & Connectionist AI Challenge Quiz</h1>
+            <p class="subtitle">Test your knowledge on data security and AI concepts</p>
         </header>
         
-        <!-- Quiz Selection Screen -->
-        <div class="quiz-selection" id="quiz-selection">
-            <div class="quiz-option" data-quiz="big-data">
-                <h3>Big Data Security & Ethics</h3>
-                <p>Test your knowledge on data security, privacy, and ethical considerations in Big Data environments.</p>
-                <button class="quiz-btn" id="start-big-data">Start Big Data Quiz</button>
-            </div>
-            <div class="quiz-option" data-quiz="ai">
-                <h3>Connectionist AI Challenges</h3>
-                <p>Explore challenges in neural networks, including black box problems, catastrophic forgetting, and more.</p>
-                <button class="quiz-btn" id="start-ai">Start AI Quiz</button>
-            </div>
+        <div class="nav-buttons">
+            <button class="nav-btn active" data-target="big-data">Big Data Security & Ethics</button>
+            <button class="nav-btn" data-target="connectionist-ai">Connectionist AI Challenges</button>
         </div>
         
-        <!-- Big Data Quiz Container -->
-        <div class="quiz-container" id="big-data-quiz">
-            <div class="quiz-header">
-                <h2 class="quiz-title">Big Data Security & Ethics</h2>
-                <div class="question-counter">Question <span id="bd-current">1</span> of 10</div>
-            </div>
+        <!-- Big Data Security & Ethics Section -->
+        <section id="big-data" class="quiz-section active">
+            <h2 class="section-title">Big Data Security & Ethics</h2>
             
-            <div class="progress-bar">
-                <div class="progress" id="bd-progress"></div>
-            </div>
-            
-            <!-- Big Data Questions (same as before) -->
-            <div class="question-container active" id="bd-q1">
-                <div class="question-number">Question 1</div>
-                <div class="question-text">Why is securing data at every stage of the Big Data lifecycle important?</div>
+            <div class="question" id="q1">
+                <p class="question-text">1. Why is securing data at every stage of the Big Data lifecycle important?</p>
                 <div class="options">
-                    <div class="option" data-value="A">
-                        <input type="radio" name="bd-q1" id="bd-q1-a" value="A">
-                        <label for="bd-q1-a">A. Vulnerabilities can arise at any point</label>
-                    </div>
-                    <div class="option" data-value="B">
-                        <input type="radio" name="bd-q1" id="bd-q1-b" value="B">
-                        <label for="bd-q1-b">B. Only old data is at risk</label>
-                    </div>
-                    <div class="option" data-value="C">
-                        <input type="radio" name="bd-q1" id="bd-q1-c" value="C">
-                        <label for="bd-q1-c">C. Security is only needed during storage</label>
-                    </div>
-                    <div class="option" data-value="D">
-                        <input type="radio" name="bd-q1" id="bd-q1-d" value="D">
-                        <label for="bd-q1-d">D. Security only matters for data destruction</label>
-                    </div>
+                    <div class="option" data-value="A">A. Vulnerabilities can arise at any point</div>
+                    <div class="option" data-value="B">B. Only old data is at risk</div>
+                    <div class="option" data-value="C">C. Security is only needed during storage</div>
+                    <div class="option" data-value="D">D. Security only matters for data destruction</div>
                 </div>
-                <div class="answer-feedback" id="bd-feedback-1"></div>
-                <div class="navigation">
-                    <button class="nav-btn hidden" id="bd-prev-1">Previous</button>
-                    <button class="nav-btn" id="bd-next-1">Next Question</button>
-                </div>
+                <div class="feedback"></div>
             </div>
             
-            <!-- Questions 2-10 would be here (omitted for brevity) -->
-            
-            <div class="score-container" id="bd-score">
-                <div class="score">Your Score: <span id="bd-score-value">0</span>/10</div>
-                <div class="score-message" id="bd-score-message"></div>
-                <button class="back-to-selection" id="bd-back">Back to Quiz Selection</button>
+            <div class="question" id="q2">
+                <p class="question-text">2. What is a common security challenge during the data storage phase in Big Data?</p>
+                <div class="options">
+                    <div class="option" data-value="A">A. Data visualization failures</div>
+                    <div class="option" data-value="B">B. Unauthorized access due to weak controls</div>
+                    <div class="option" data-value="C">C. Slow internet speed</div>
+                    <div class="option" data-value="D">D. Insufficient data labeling</div>
+                </div>
+                <div class="feedback"></div>
             </div>
-        </div>
+            
+            <div class="question" id="q3">
+                <p class="question-text">3. Which security measure helps protect data in transit?</p>
+                <div class="options">
+                    <div class="option" data-value="A">A. Unencrypted hard drives</div>
+                    <div class="option" data-value="B">B. TLS/SSL protocols</div>
+                    <div class="option" data-value="C">C. Role-based access only</div>
+                    <div class="option" data-value="D">D. Paper records</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q4">
+                <p class="question-text">4. List two major security threats in Big Data environments.</p>
+                <textarea class="short-answer" placeholder="Type your answer here..."></textarea>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q5">
+                <p class="question-text">5. What principle ensures users only have the access necessary for their jobs?</p>
+                <div class="options">
+                    <div class="option" data-value="A">A. Open access policy</div>
+                    <div class="option" data-value="B">B. Least privilege principle</div>
+                    <div class="option" data-value="C">C. Full control configuration</div>
+                    <div class="option" data-value="D">D. API gateway</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q6">
+                <p class="question-text">6. Name one example of an "insider threat" in Big Data.</p>
+                <textarea class="short-answer" placeholder="Type your answer here..."></textarea>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q7">
+                <p class="question-text">7. Which measure can prevent employees from emailing confidential files outside the company?</p>
+                <div class="options">
+                    <div class="option" data-value="A">A. Distributed denial-of-service defense</div>
+                    <div class="option" data-value="B">B. Data Loss Prevention tools</div>
+                    <div class="option" data-value="C">C. Role-based marketing</div>
+                    <div class="option" data-value="D">D. Large storage arrays</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q8">
+                <p class="question-text">8. What is a key ethical principle in Big Data concerning how data is collected and used?</p>
+                <div class="options">
+                    <div class="option" data-value="A">A. Unlimited collection without disclosure</div>
+                    <div class="option" data-value="B">B. Transparency</div>
+                    <div class="option" data-value="C">C. Price-fixing</div>
+                    <div class="option" data-value="D">D. Role rotation</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q9">
+                <p class="question-text">9. What should be obtained from users before collecting their personal data?</p>
+                <div class="options">
+                    <div class="option" data-value="A">A. Verbal greetings</div>
+                    <div class="option" data-value="B">B. Informed consent</div>
+                    <div class="option" data-value="C">C. Usage statistics</div>
+                    <div class="option" data-value="D">D. Encryption keys</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" id="q10">
+                <p class="question-text">10. Name two best practices for upholding Big Data ethics.</p>
+                <textarea class="short-answer" placeholder="Type your answer here..."></textarea>
+                <div class="feedback"></div>
+            </div>
+            
+            <button class="submit-btn" data-section="big-data">Submit Big Data Quiz</button>
+            <div class="results" id="big-data-results">
+                <div class="score">Your Score: <span id="big-data-score">0</span>/10</div>
+            </div>
+        </section>
         
-        <!-- AI Quiz Container -->
-        <div class="quiz-container" id="ai-quiz">
-            <div class="quiz-header">
-                <h2 class="quiz-title">Connectionist AI Challenges</h2>
-                <div class="question-counter">Question <span id="ai-current">1</span> of 9</div>
+        <!-- Connectionist AI Challenges Section -->
+        <section id="connectionist-ai" class="quiz-section">
+            <h2 class="section-title">Connectionist AI Challenges</h2>
+            
+            <div class="question" id="q11">
+                <p class="question-text">1. Define the Black Box Problem in connectionist AI and explain why it matters in high-stakes applications. (2–3 sentences)</p>
+                <textarea class="short-answer" placeholder="Type your answer here..."></textarea>
+                <div class="feedback"></div>
             </div>
             
-            <div class="progress-bar">
-                <div class="progress" id="ai-progress"></div>
+            <div class="question" id="q12">
+                <p class="question-text">2. What is catastrophic forgetting, and what general strategy is commonly proposed to mitigate it in neural networks? (2 sentences)</p>
+                <textarea class="short-answer" placeholder="Type your answer here..."></textarea>
+                <div class="feedback"></div>
             </div>
             
-            <!-- AI Questions -->
-            <div class="question-container active" id="ai-q1">
-                <div class="question-number">Question 1</div>
-                <div class="question-text">Define the Black Box Problem in connectionist AI and explain why it matters in high-stakes applications. (2–3 sentences)</div>
-                <textarea class="short-answer" id="ai-answer-1" placeholder="Type your answer here..."></textarea>
-                <div class="answer-feedback" id="ai-feedback-1"></div>
-                <div class="navigation">
-                    <button class="nav-btn hidden" id="ai-prev-1">Previous</button>
-                    <button class="nav-btn" id="ai-next-1">Next Question</button>
-                </div>
+            <div class="question" id="q13">
+                <p class="question-text">3. Briefly describe meta-learning and how it differs from standard supervised learning. (2–3 sentences)</p>
+                <textarea class="short-answer" placeholder="Type your answer here..."></textarea>
+                <div class="feedback"></div>
             </div>
             
-            <div class="question-container" id="ai-q2">
-                <div class="question-number">Question 2</div>
-                <div class="question-text">What is catastrophic forgetting, and what general strategy is commonly proposed to mitigate it in neural networks? (2 sentences)</div>
-                <textarea class="short-answer" id="ai-answer-2" placeholder="Type your answer here..."></textarea>
-                <div class="answer-feedback" id="ai-feedback-2"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-2">Previous</button>
-                    <button class="nav-btn" id="ai-next-2">Next Question</button>
-                </div>
-            </div>
-            
-            <div class="question-container" id="ai-q3">
-                <div class="question-number">Question 3</div>
-                <div class="question-text">Briefly describe meta-learning and how it differs from standard supervised learning. (2–3 sentences)</div>
-                <textarea class="short-answer" id="ai-answer-3" placeholder="Type your answer here..."></textarea>
-                <div class="answer-feedback" id="ai-feedback-3"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-3">Previous</button>
-                    <button class="nav-btn" id="ai-next-3">Next Question</button>
-                </div>
-            </div>
-            
-            <div class="question-container" id="ai-q4">
-                <div class="question-number">Question 4</div>
-                <div class="question-text">Which approach directly aims to improve interpretability of neural networks by outlining which features or regions influenced a decision?</div>
+            <div class="question" id="q14">
+                <p class="question-text">4. Which approach directly aims to improve interpretability of neural networks by outlining which features or regions influenced a decision?</p>
                 <div class="options">
-                    <div class="option" data-value="A">
-                        <input type="radio" name="ai-q4" id="ai-q4-a" value="A">
-                        <label for="ai-q4-a">a) Pruning</label>
-                    </div>
-                    <div class="option" data-value="B">
-                        <input type="radio" name="ai-q4" id="ai-q4-b" value="B">
-                        <label for="ai-q4-b">b) Attention visualization</label>
-                    </div>
-                    <div class="option" data-value="C">
-                        <input type="radio" name="ai-q4" id="ai-q4-c" value="C">
-                        <label for="ai-q4-c">c) Data augmentation</label>
-                    </div>
-                    <div class="option" data-value="D">
-                        <input type="radio" name="ai-q4" id="ai-q4-d" value="D">
-                        <label for="ai-q4-d">d) Hardware acceleration</label>
-                    </div>
+                    <div class="option" data-value="A">a) Pruning</div>
+                    <div class="option" data-value="B">b) Attention visualization</div>
+                    <div class="option" data-value="C">c) Data augmentation</div>
+                    <div class="option" data-value="D">d) Hardware acceleration</div>
                 </div>
-                <div class="answer-feedback" id="ai-feedback-4"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-4">Previous</button>
-                    <button class="nav-btn" id="ai-next-4">Next Question</button>
-                </div>
+                <div class="feedback"></div>
             </div>
             
-            <div class="question-container" id="ai-q5">
-                <div class="question-number">Question 5</div>
-                <div class="question-text">Graph Neural Networks (GNNs) are particularly well-suited for:</div>
+            <div class="question" id="q15">
+                <p class="question-text">5. Graph Neural Networks (GNNs) are particularly well-suited for:</p>
                 <div class="options">
-                    <div class="option" data-value="A">
-                        <input type="radio" name="ai-q5" id="ai-q5-a" value="A">
-                        <label for="ai-q5-a">a) Fixed-grid image data</label>
-                    </div>
-                    <div class="option" data-value="B">
-                        <input type="radio" name="ai-q5" id="ai-q5-b" value="B">
-                        <label for="ai-q5-b">b) Sequential tabular data</label>
-                    </div>
-                    <div class="option" data-value="C">
-                        <input type="radio" name="ai-q5" id="ai-q5-c" value="C">
-                        <label for="ai-q5-c">c) Graph-structured data with variable connectivity</label>
-                    </div>
-                    <div class="option" data-value="D">
-                        <input type="radio" name="ai-q5" id="ai-q5-d" value="D">
-                        <label for="ai-q5-d">d) Pure symbolic reasoning</label>
-                    </div>
+                    <div class="option" data-value="A">a) Fixed-grid image data</div>
+                    <div class="option" data-value="B">b) Sequential tabular data</div>
+                    <div class="option" data-value="C">c) Graph-structured data with variable connectivity</div>
+                    <div class="option" data-value="D">d) Pure symbolic reasoning</div>
                 </div>
-                <div class="answer-feedback" id="ai-feedback-5"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-5">Previous</button>
-                    <button class="nav-btn" id="ai-next-5">Next Question</button>
-                </div>
+                <div class="feedback"></div>
             </div>
             
-            <div class="question-container" id="ai-q6">
-                <div class="question-number">Question 6</div>
-                <div class="question-text">Hybrid Neuro-Symbolic AI primarily combines:</div>
+            <div class="question" id="q16">
+                <p class="question-text">6. Hybrid Neuro-Symbolic AI primarily combines:</p>
                 <div class="options">
-                    <div class="option" data-value="A">
-                        <input type="radio" name="ai-q6" id="ai-q6-a" value="A">
-                        <label for="ai-q6-a">a) Large-scale data and label scarcity</label>
-                    </div>
-                    <div class="option" data-value="B">
-                        <input type="radio" name="ai-q6" id="ai-q6-b" value="B">
-                        <label for="ai-q6-b">b) Neural pattern recognition with symbolic logical reasoning</label>
-                    </div>
-                    <div class="option" data-value="C">
-                        <input type="radio" name="ai-q6" id="ai-q6-c" value="C">
-                        <label for="ai-q6-c">c) Hardware-centric optimization with software</label>
-                    </div>
-                    <div class="option" data-value="D">
-                        <input type="radio" name="ai-q6" id="ai-q6-d" value="D">
-                        <label for="ai-q6-d">d) Unsupervised learning with reinforcement learning</label>
-                    </div>
+                    <div class="option" data-value="A">a) Large-scale data and label scarcity</div>
+                    <div class="option" data-value="B">b) Neural pattern recognition with symbolic logical reasoning</div>
+                    <div class="option" data-value="C">c) Hardware-centric optimization with software</div>
+                    <div class="option" data-value="D">d) Unsupervised learning with reinforcement learning</div>
                 </div>
-                <div class="answer-feedback" id="ai-feedback-6"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-6">Previous</button>
-                    <button class="nav-btn" id="ai-next-6">Next Question</button>
-                </div>
+                <div class="feedback"></div>
             </div>
             
-            <div class="question-container" id="ai-q7">
-                <div class="question-number">Question 7</div>
-                <div class="question-text">True or False: Meta-learning aims to learn a single task extremely well and then generalize to related tasks without any adaptation.</div>
-                <div class="true-false-options">
-                    <div class="true-false-btn" data-value="true">True</div>
-                    <div class="true-false-btn" data-value="false">False</div>
+            <div class="question" id="q17">
+                <p class="question-text">7. True or False: Meta-learning aims to learn a single task extremely well and then generalize to related tasks without any adaptation.</p>
+                <div class="options">
+                    <div class="option" data-value="true">True</div>
+                    <div class="option" data-value="false">False</div>
                 </div>
-                <div class="answer-feedback" id="ai-feedback-7"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-7">Previous</button>
-                    <button class="nav-btn" id="ai-next-7">Next Question</button>
-                </div>
+                <div class="feedback"></div>
             </div>
             
-            <div class="question-container" id="ai-q8">
-                <div class="question-number">Question 8</div>
-                <div class="question-text">True or False: Energy efficiency in large neural networks is only a concern for researchers and has no impact on real-world deployment.</div>
-                <div class="true-false-options">
-                    <div class="true-false-btn" data-value="true">True</div>
-                    <div class="true-false-btn" data-value="false">False</div>
+            <div class="question" id="q18">
+                <p class="question-text">8. True or False: Energy efficiency in large neural networks is only a concern for researchers and has no impact on real-world deployment.</p>
+                <div class="options">
+                    <div class="option" data-value="true">True</div>
+                    <div class="option" data-value="false">False</div>
                 </div>
-                <div class="answer-feedback" id="ai-feedback-8"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-8">Previous</button>
-                    <button class="nav-btn" id="ai-next-8">Next Question</button>
-                </div>
+                <div class="feedback"></div>
             </div>
             
-            <div class="question-container" id="ai-q9">
-                <div class="question-number">Question 9</div>
-                <div class="question-text">True or False: Explainable AI (XAI) techniques can fully reveal all internal decision pathways of deep networks without any trade-offs.</div>
-                <div class="true-false-options">
-                    <div class="true-false-btn" data-value="true">True</div>
-                    <div class="true-false-btn" data-value="false">False</div>
+            <div class="question" id="q19">
+                <p class="question-text">9. True or False: Explainable AI (XAI) techniques can fully reveal all internal decision pathways of deep networks without any trade-offs.</p>
+                <div class="options">
+                    <div class="option" data-value="true">True</div>
+                    <div class="option" data-value="false">False</div>
                 </div>
-                <div class="answer-feedback" id="ai-feedback-9"></div>
-                <div class="navigation">
-                    <button class="nav-btn" id="ai-prev-9">Previous</button>
-                    <button class="nav-btn" id="ai-submit">Submit Quiz</button>
-                </div>
+                <div class="feedback"></div>
             </div>
             
-            <div class="score-container" id="ai-score">
-                <div class="score">Your Score: <span id="ai-score-value">0</span>/9</div>
-                <div class="score-message" id="ai-score-message"></div>
-                <button class="back-to-selection" id="ai-back">Back to Quiz Selection</button>
+            <button class="submit-btn" data-section="connectionist-ai">Submit Connectionist AI Quiz</button>
+            <div class="results" id="connectionist-ai-results">
+                <div class="score">Your Score: <span id="connectionist-ai-score">0</span>/9</div>
             </div>
-        </div>
+        </section>
     </div>
 
     <script>
-        // Big Data Quiz State
-        let bdCurrentQuestion = 1;
-        const bdTotalQuestions = 10;
-        
-        // AI Quiz State
-        let aiCurrentQuestion = 1;
-        const aiTotalQuestions = 9;
-        
-        // Start Big Data Quiz
-        document.getElementById('start-big-data').addEventListener('click', function() {
-            document.getElementById('quiz-selection').style.display = 'none';
-            document.getElementById('big-data-quiz').style.display = 'block';
-            updateBDProgress();
+        // Navigation between sections
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetSection = this.getAttribute('data-target');
+                
+                // Update active nav button
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show target section, hide others
+                document.querySelectorAll('.quiz-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(targetSection).classList.add('active');
+            });
         });
         
-        // Start AI Quiz
-        document.getElementById('start-ai').addEventListener('click', function() {
-            document.getElementById('quiz-selection').style.display = 'none';
-            document.getElementById('ai-quiz').style.display = 'block';
-            updateAIProgress();
-        });
-        
-        // Back to selection
-        document.getElementById('bd-back').addEventListener('click', function() {
-            document.getElementById('big-data-quiz').style.display = 'none';
-            document.getElementById('quiz-selection').style.display = 'flex';
-            resetBDQuiz();
-        });
-        
-        document.getElementById('ai-back').addEventListener('click', function() {
-            document.getElementById('ai-quiz').style.display = 'none';
-            document.getElementById('quiz-selection').style.display = 'flex';
-            resetAIQuiz();
-        });
-        
-        // Option selection for both quizzes
+        // Multiple choice selection
         document.querySelectorAll('.option').forEach(option => {
             option.addEventListener('click', function() {
-                const questionContainer = this.closest('.question-container');
-                const options = questionContainer.querySelectorAll('.option');
+                const question = this.closest('.question');
+                const options = question.querySelectorAll('.option');
                 
+                // Remove selected class from all options in this question
                 options.forEach(opt => {
                     opt.classList.remove('selected');
-                    opt.querySelector('input').checked = false;
                 });
                 
+                // Add selected class to clicked option
                 this.classList.add('selected');
-                this.querySelector('input').checked = true;
             });
         });
         
-        // True/False buttons for AI quiz
-        document.querySelectorAll('.true-false-btn').forEach(button => {
+        // Submit functionality
+        document.querySelectorAll('.submit-btn').forEach(button => {
             button.addEventListener('click', function() {
-                const questionContainer = this.closest('.question-container');
-                const buttons = questionContainer.querySelectorAll('.true-false-btn');
-                
-                buttons.forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-                
-                this.classList.add('selected');
+                const section = this.getAttribute('data-section');
+                submitQuiz(section);
             });
         });
         
-        // Big Data Navigation
-        for (let i = 1; i <= bdTotalQuestions; i++) {
-            if (i < bdTotalQuestions) {
-                document.getElementById(`bd-next-${i}`).addEventListener('click', function() {
-                    goToBDQuestion(i + 1);
-                });
-            }
-            if (i > 1) {
-                document.getElementById(`bd-prev-${i}`).addEventListener('click', function() {
-                    goToBDQuestion(i - 1);
-                });
-            }
-        }
-        document.getElementById('bd-submit').addEventListener('click', function() {
-            calculateBDScore();
-        });
-        
-        // AI Navigation
-        for (let i = 1; i <= aiTotalQuestions; i++) {
-            if (i < aiTotalQuestions) {
-                document.getElementById(`ai-next-${i}`).addEventListener('click', function() {
-                    goToAIQuestion(i + 1);
-                });
-            }
-            if (i > 1) {
-                document.getElementById(`ai-prev-${i}`).addEventListener('click', function() {
-                    goToAIQuestion(i - 1);
-                });
-            }
-        }
-        document.getElementById('ai-submit').addEventListener('click', function() {
-            calculateAIScore();
-        });
-        
-        // Navigation functions
-        function goToBDQuestion(questionNum) {
-            document.getElementById(`bd-q${bdCurrentQuestion}`).classList.remove('active');
-            document.getElementById(`bd-q${questionNum}`).classList.add('active');
-            bdCurrentQuestion = questionNum;
-            updateBDProgress();
-        }
-        
-        function goToAIQuestion(questionNum) {
-            document.getElementById(`ai-q${aiCurrentQuestion}`).classList.remove('active');
-            document.getElementById(`ai-q${questionNum}`).classList.add('active');
-            aiCurrentQuestion = questionNum;
-            updateAIProgress();
-        }
-        
-        // Progress functions
-        function updateBDProgress() {
-            const progressPercentage = (bdCurrentQuestion / bdTotalQuestions) * 100;
-            document.getElementById('bd-progress').style.width = `${progressPercentage}%`;
-            document.getElementById('bd-current').textContent = bdCurrentQuestion;
-        }
-        
-        function updateAIProgress() {
-            const progressPercentage = (aiCurrentQuestion / aiTotalQuestions) * 100;
-            document.getElementById('ai-progress').style.width = `${progressPercentage}%`;
-            document.getElementById('ai-current').textContent = aiCurrentQuestion;
-        }
-        
-        // Score calculation functions
-        function calculateBDScore() {
+        // Quiz submission and scoring
+        function submitQuiz(section) {
             let score = 0;
+            let totalQuestions = 0;
+            
+            // Define correct answers
             const correctAnswers = {
-                1: 'A', 2: 'B', 3: 'B', 5: 'B', 7: 'B', 8: 'B', 9: 'B'
+                'big-data': {
+                    'q1': 'A',
+                    'q2': 'B',
+                    'q3': 'B',
+                    'q4': ['Ransomware attacks on data platforms', 'Data breaches and unauthorized access'],
+                    'q5': 'B',
+                    'q6': ['A disgruntled employee leaking confidential data'],
+                    'q7': 'B',
+                    'q8': 'B',
+                    'q9': 'B',
+                    'q10': ['Privacy by design at every project stage', 'Regular audits for compliance and fairness']
+                },
+                'connectionist-ai': {
+                    'q11': ['The Black Box Problem: neural networks\' internal reasoning is not human-interpretable; this undermines trust and accountability in critical domains.'],
+                    'q12': ['Catastrophic forgetting: neural networks forget previously learned tasks when trained on new ones; mitigations include replay/rehearsal, meta-learning, regularization, or architectural methods.'],
+                    'q13': ['Meta-learning: learning to learn; models gain ability to adapt quickly to new tasks with limited data, unlike standard supervised learning which optimizes for a single task.'],
+                    'q14': 'B',
+                    'q15': 'C',
+                    'q16': 'B',
+                    'q17': 'false',
+                    'q18': 'false',
+                    'q19': 'false'
+                }
             };
             
-            // Check multiple choice questions
-            for (let i = 1; i <= bdTotalQuestions; i++) {
-                if (i === 4 || i === 6 || i === 10) continue;
-                
-                const selectedOption = document.querySelector(`#bd-q${i} .option.selected`);
-                const isCorrect = selectedOption && selectedOption.getAttribute('data-value') === correctAnswers[i];
-                
-                if (isCorrect) {
-                    score++;
-                    selectedOption.classList.add('correct');
-                    document.getElementById(`bd-feedback-${i}`).textContent = "Correct!";
-                    document.getElementById(`bd-feedback-${i}`).className = "answer-feedback correct";
-                } else {
-                    if (selectedOption) {
-                        selectedOption.classList.add('incorrect');
-                    }
-                    // Highlight correct answer
-                    const correctOption = document.querySelector(`#bd-q${i} .option[data-value="${correctAnswers[i]}"]`);
-                    if (correctOption) {
-                        correctOption.classList.add('correct');
-                    }
-                    document.getElementById(`bd-feedback-${i}`).textContent = `Incorrect. The correct answer is: ${correctAnswers[i]}`;
-                    document.getElementById(`bd-feedback-${i}`).className = "answer-feedback incorrect";
-                }
-                document.getElementById(`bd-feedback-${i}`).style.display = "block";
-            }
+            // Check answers for the current section
+            const questions = document.querySelectorAll(`#${section} .question`);
+            totalQuestions = questions.length;
             
-            // Check text questions
-            const textAnswers = [4, 6, 10];
-            textAnswers.forEach(qNum => {
-                const answer = document.getElementById(`bd-answer-${qNum}`).value.trim();
-                if (answer.length > 0) {
-                    score++;
-                    document.getElementById(`bd-feedback-${qNum}`).textContent = "Good answer!";
-                    document.getElementById(`bd-feedback-${qNum}`).className = "answer-feedback correct";
-                } else {
-                    document.getElementById(`bd-feedback-${qNum}`).textContent = "Please provide an answer.";
-                    document.getElementById(`bd-feedback-${qNum}`).className = "answer-feedback incorrect";
+            questions.forEach(question => {
+                const questionId = question.id;
+                const feedback = question.querySelector('.feedback');
+                const correctAnswer = correctAnswers[section][questionId];
+                
+                // Check if it's a multiple choice question
+                const selectedOption = question.querySelector('.option.selected');
+                if (selectedOption) {
+                    const userAnswer = selectedOption.getAttribute('data-value');
+                    
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                        selectedOption.classList.add('correct');
+                        feedback.innerHTML = '<div class="feedback correct">Correct!</div>';
+                    } else {
+                        selectedOption.classList.add('incorrect');
+                        feedback.innerHTML = `<div class="feedback">Incorrect. The correct answer is: ${getAnswerText(question, correctAnswer)}</div>`;
+                    }
+                } 
+                // Check if it's a text answer question
+                else {
+                    const textArea = question.querySelector('.short-answer');
+                    if (textArea) {
+                        const userAnswer = textArea.value.trim().toLowerCase();
+                        
+                        // For text answers, we'll check if the answer contains key phrases
+                        let isCorrect = false;
+                        if (Array.isArray(correctAnswer)) {
+                            // Check if any of the correct answers are present in the user's response
+                            for (const answer of correctAnswer) {
+                                if (userAnswer.includes(answer.toLowerCase())) {
+                                    isCorrect = true;
+                                    break;
+                                }
+                            }
+                        } else {
+                            isCorrect = userAnswer.includes(correctAnswer.toLowerCase());
+                        }
+                        
+                        if (isCorrect) {
+                            score++;
+                            feedback.innerHTML = '<div class="feedback correct">Correct!</div>';
+                        } else {
+                            feedback.innerHTML = `<div class="feedback">Incorrect. The correct answer is: ${Array.isArray(correctAnswer) ? correctAnswer.join(' OR ') : correctAnswer}</div>`;
+                        }
+                    }
                 }
-                document.getElementById(`bd-feedback-${qNum}`).style.display = "block";
             });
             
-            // Show score
-            document.getElementById('bd-q10').classList.remove('active');
-            document.getElementById('bd-score').style.display = 'block';
-            document.getElementById('bd-score-value').textContent = score;
+            // Display score
+            const resultsDiv = document.getElementById(`${section}-results`);
+            const scoreSpan = document.getElementById(`${section}-score`);
             
-            // Score message
-            const percentage = (score / bdTotalQuestions) * 100;
-            let message = '';
-            if (percentage >= 90) message = 'Excellent! You have a strong understanding of Big Data Security & Ethics.';
-            else if (percentage >= 70) message = 'Good job! You have a solid grasp of the material.';
-            else if (percentage >= 50) message = 'Not bad! Review the material to improve your understanding.';
-            else message = 'Keep studying! Review the material and try again.';
-            document.getElementById('bd-score-message').textContent = message;
+            scoreSpan.textContent = score;
+            resultsDiv.classList.add('show');
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
         
-        function calculateAIScore() {
-            let score = 0;
-            const correctAnswers = {
-                4: 'B', 5: 'C', 6: 'B', 7: 'false', 8: 'false', 9: 'false'
-            };
-            
-            // Check multiple choice questions
-            for (let i = 4; i <= 6; i++) {
-                const selectedOption = document.querySelector(`#ai-q${i} .option.selected`);
-                const isCorrect = selectedOption && selectedOption.getAttribute('data-value') === correctAnswers[i];
-                
-                if (isCorrect) {
-                    score++;
-                    selectedOption.classList.add('correct');
-                    document.getElementById(`ai-feedback-${i}`).textContent = "Correct!";
-                    document.getElementById(`ai-feedback-${i}`).className = "answer-feedback correct";
-                } else {
-                    if (selectedOption) {
-                        selectedOption.classList.add('incorrect');
-                    }
-                    // Highlight correct answer
-                    const correctOption = document.querySelector(`#ai-q${i} .option[data-value="${correctAnswers[i]}"]`);
-                    if (correctOption) {
-                        correctOption.classList.add('correct');
-                    }
-                    document.getElementById(`ai-feedback-${i}`).textContent = `Incorrect. The correct answer is: ${correctAnswers[i]}`;
-                    document.getElementById(`ai-feedback-${i}`).className = "answer-feedback incorrect";
+        // Helper function to get answer text for multiple choice questions
+        function getAnswerText(question, correctValue) {
+            const options = question.querySelectorAll('.option');
+            for (const option of options) {
+                if (option.getAttribute('data-value') === correctValue) {
+                    return option.textContent;
                 }
-                document.getElementById(`ai-feedback-${i}`).style.display = "block";
             }
-            
-            // Check true/false questions
-            for (let i = 7; i <= 9; i++) {
-                const selectedBtn = document.querySelector(`#ai-q${i} .true-false-btn.selected`);
-                const isCorrect = selectedBtn && selectedBtn.getAttribute('data-value') === correctAnswers[i];
-                
-                if (isCorrect) {
-                    score++;
-                    selectedBtn.classList.add('correct');
-                    document.getElementById(`ai-feedback-${i}`).textContent = "Correct!";
-                    document.getElementById(`ai-feedback-${i}`).className = "answer-feedback correct";
-                } else {
-                    if (selectedBtn) {
-                        selectedBtn.classList.add('incorrect');
-                    }
-                    // Highlight correct answer
-                    const correctBtn = document.querySelector(`#ai-q${i} .true-false-btn[data-value="${correctAnswers[i]}"]`);
-                    if (correctBtn) {
-                        correctBtn.classList.add('correct');
-                    }
-                    document.getElementById(`ai-feedback-${i}`).textContent = `Incorrect. The correct answer is: ${correctAnswers[i]}`;
-                    document.getElementById(`ai-feedback-${i}`).className = "answer-feedback incorrect";
-                }
-                document.getElementById(`ai-feedback-${i}`).style.display = "block";
-            }
-            
-            // Check text questions
-            for (let i = 1; i <= 3; i++) {
-                const answer = document.getElementById(`ai-answer-${i}`).value.trim();
-                if (answer.length > 0) {
-                    score++;
-                    document.getElementById(`ai-feedback-${i}`).textContent = "Good answer!";
-                    document.getElementById(`ai-feedback-${i}`).className = "answer-feedback correct";
-                } else {
-                    document.getElementById(`ai-feedback-${i}`).textContent = "Please provide an answer.";
-                    document.getElementById(`ai-feedback-${i}`).className = "answer-feedback incorrect";
-                }
-                document.getElementById(`ai-feedback-${i}`).style.display = "block";
-            }
-            
-            // Show score
-            document.getElementById('ai-q9').classList.remove('active');
-            document.getElementById('ai-score').style.display = 'block';
-            document.getElementById('ai-score-value').textContent = score;
-            
-            // Score message
-            const percentage = (score / aiTotalQuestions) * 100;
-            let message = '';
-            if (percentage >= 90) message = 'Excellent! You have a strong understanding of Connectionist AI Challenges.';
-            else if (percentage >= 70) message = 'Good job! You have a solid grasp of the material.';
-            else if (percentage >= 50) message = 'Not bad! Review the material to improve your understanding.';
-            else message = 'Keep studying! Review the material and try again.';
-            document.getElementById('ai-score-message').textContent = message;
-        }
-        
-        // Reset functions
-        function resetBDQuiz() {
-            bdCurrentQuestion = 1;
-            for (let i = 1; i <= bdTotalQuestions; i++) {
-                document.getElementById(`bd-q${i}`).classList.remove('active');
-                const options = document.querySelectorAll(`#bd-q${i} .option`);
-                options.forEach(option => {
-                    option.classList.remove('selected', 'correct', 'incorrect');
-                    option.querySelector('input').checked = false;
-                });
-                const textAreas = document.querySelectorAll(`#bd-q${i} textarea`);
-                textAreas.forEach(textarea => textarea.value = '');
-                document.getElementById(`bd-feedback-${i}`).style.display = 'none';
-            }
-            document.getElementById('bd-q1').classList.add('active');
-            document.getElementById('bd-score').style.display = 'none';
-            updateBDProgress();
-        }
-        
-        function resetAIQuiz() {
-            aiCurrentQuestion = 1;
-            for (let i = 1; i <= aiTotalQuestions; i++) {
-                document.getElementById(`ai-q${i}`).classList.remove('active');
-                const options = document.querySelectorAll(`#ai-q${i} .option`);
-                options.forEach(option => {
-                    option.classList.remove('selected', 'correct', 'incorrect');
-                    option.querySelector('input').checked = false;
-                });
-                const trueFalseBtns = document.querySelectorAll(`#ai-q${i} .true-false-btn`);
-                trueFalseBtns.forEach(btn => btn.classList.remove('selected', 'correct', 'incorrect'));
-                const textAreas = document.querySelectorAll(`#ai-q${i} textarea`);
-                textAreas.forEach(textarea => textarea.value = '');
-                document.getElementById(`ai-feedback-${i}`).style.display = 'none';
-            }
-            document.getElementById('ai-q1').classList.add('active');
-            document.getElementById('ai-score').style.display = 'none';
-            updateAIProgress();
+            return correctValue;
         }
     </script>
 </body>
