@@ -293,7 +293,7 @@
             <div class="quiz-option" data-quiz="big-data">
                 <h3>Big Data Security & Ethics</h3>
                 <p>Test your knowledge on data security, privacy, and ethical considerations in Big Data environments.</p>
-                <button class="quiz-btn">Start Big Data Quiz</button>
+                <button class="quiz-btn" id="start-big-data">Start Big Data Quiz</button>
             </div>
             <div class="quiz-option" data-quiz="ai">
                 <h3>Connectionist AI Challenges</h3>
@@ -313,7 +313,7 @@
                 <div class="progress" id="bd-progress"></div>
             </div>
             
-            <!-- Big Data Questions -->
+            <!-- Question 1 -->
             <div class="question-container active" id="bd-q1">
                 <div class="question-number">Question 1</div>
                 <div class="question-text">Why is securing data at every stage of the Big Data lifecycle important?</div>
@@ -337,10 +337,11 @@
                 </div>
                 <div class="navigation">
                     <button class="nav-btn hidden" id="bd-prev-1">Previous</button>
-                    <button class="nav-btn" id="bd-next-1">Next</button>
+                    <button class="nav-btn" id="bd-next-1">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 2 -->
             <div class="question-container" id="bd-q2">
                 <div class="question-number">Question 2</div>
                 <div class="question-text">What is a common security challenge during the data storage phase in Big Data?</div>
@@ -364,10 +365,11 @@
                 </div>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-2">Previous</button>
-                    <button class="nav-btn" id="bd-next-2">Next</button>
+                    <button class="nav-btn" id="bd-next-2">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 3 -->
             <div class="question-container" id="bd-q3">
                 <div class="question-number">Question 3</div>
                 <div class="question-text">Which security measure helps protect data in transit?</div>
@@ -391,20 +393,22 @@
                 </div>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-3">Previous</button>
-                    <button class="nav-btn" id="bd-next-3">Next</button>
+                    <button class="nav-btn" id="bd-next-3">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 4 -->
             <div class="question-container" id="bd-q4">
                 <div class="question-number">Question 4</div>
                 <div class="question-text">List two major security threats in Big Data environments.</div>
                 <textarea class="short-answer" id="bd-answer-4" placeholder="Type your answer here..."></textarea>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-4">Previous</button>
-                    <button class="nav-btn" id="bd-next-4">Next</button>
+                    <button class="nav-btn" id="bd-next-4">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 5 -->
             <div class="question-container" id="bd-q5">
                 <div class="question-number">Question 5</div>
                 <div class="question-text">What principle ensures users only have the access necessary for their jobs?</div>
@@ -428,20 +432,22 @@
                 </div>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-5">Previous</button>
-                    <button class="nav-btn" id="bd-next-5">Next</button>
+                    <button class="nav-btn" id="bd-next-5">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 6 -->
             <div class="question-container" id="bd-q6">
                 <div class="question-number">Question 6</div>
                 <div class="question-text">Name one example of an "insider threat" in Big Data.</div>
                 <textarea class="short-answer" id="bd-answer-6" placeholder="Type your answer here..."></textarea>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-6">Previous</button>
-                    <button class="nav-btn" id="bd-next-6">Next</button>
+                    <button class="nav-btn" id="bd-next-6">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 7 -->
             <div class="question-container" id="bd-q7">
                 <div class="question-number">Question 7</div>
                 <div class="question-text">Which measure can prevent employees from emailing confidential files outside the company?</div>
@@ -465,10 +471,11 @@
                 </div>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-7">Previous</button>
-                    <button class="nav-btn" id="bd-next-7">Next</button>
+                    <button class="nav-btn" id="bd-next-7">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 8 -->
             <div class="question-container" id="bd-q8">
                 <div class="question-number">Question 8</div>
                 <div class="question-text">What is a key ethical principle in Big Data concerning how data is collected and used?</div>
@@ -492,10 +499,11 @@
                 </div>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-8">Previous</button>
-                    <button class="nav-btn" id="bd-next-8">Next</button>
+                    <button class="nav-btn" id="bd-next-8">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 9 -->
             <div class="question-container" id="bd-q9">
                 <div class="question-number">Question 9</div>
                 <div class="question-text">What should be obtained from users before collecting their personal data?</div>
@@ -519,10 +527,11 @@
                 </div>
                 <div class="navigation">
                     <button class="nav-btn" id="bd-prev-9">Previous</button>
-                    <button class="nav-btn" id="bd-next-9">Next</button>
+                    <button class="nav-btn" id="bd-next-9">Next Question</button>
                 </div>
             </div>
             
+            <!-- Question 10 -->
             <div class="question-container" id="bd-q10">
                 <div class="question-number">Question 10</div>
                 <div class="question-text">Name two best practices for upholding Big Data ethics.</div>
@@ -542,122 +551,92 @@
     </div>
 
     <script>
-        // Quiz selection functionality
-        document.querySelectorAll('.quiz-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const quizOption = e.target.closest('.quiz-option');
-                const quizType = quizOption.getAttribute('data-quiz');
-                
-                // Hide selection screen and show quiz container
-                document.getElementById('quiz-selection').style.display = 'none';
-                document.getElementById(`${quizType}-quiz`).style.display = 'block';
-                
-                // Initialize progress bar
-                updateProgress(quizType, 1);
-            });
+        // Big Data Quiz State
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+        
+        // Start Big Data Quiz
+        document.getElementById('start-big-data').addEventListener('click', function() {
+            document.getElementById('quiz-selection').style.display = 'none';
+            document.getElementById('big-data-quiz').style.display = 'block';
+            updateProgress();
         });
         
-        // Back to selection functionality
-        document.getElementById('bd-back').addEventListener('click', () => {
-            // Hide quiz container
+        // Back to selection
+        document.getElementById('bd-back').addEventListener('click', function() {
             document.getElementById('big-data-quiz').style.display = 'none';
-            
-            // Show selection screen
             document.getElementById('quiz-selection').style.display = 'flex';
-            
-            // Reset quiz
-            resetQuiz('big-data');
+            resetQuiz();
         });
         
-        // Option selection functionality for Big Data quiz
+        // Option selection
         document.querySelectorAll('#big-data-quiz .option').forEach(option => {
-            option.addEventListener('click', () => {
-                const questionContainer = option.closest('.question-container');
+            option.addEventListener('click', function() {
+                const questionContainer = this.closest('.question-container');
                 const options = questionContainer.querySelectorAll('.option');
                 
-                // Remove selected class from all options
                 options.forEach(opt => {
                     opt.classList.remove('selected');
                     opt.querySelector('input').checked = false;
                 });
                 
-                // Add selected class to clicked option
-                option.classList.add('selected');
-                option.querySelector('input').checked = true;
+                this.classList.add('selected');
+                this.querySelector('input').checked = true;
             });
         });
         
-        // Navigation functionality for Big Data quiz - FIXED VERSION
-        for (let i = 1; i <= 10; i++) {
-            // Next button
-            if (i < 10) {
-                const nextButton = document.getElementById(`bd-next-${i}`);
-                if (nextButton) {
-                    nextButton.addEventListener('click', () => {
-                        console.log(`Next button ${i} clicked`);
-                        navigateQuestion('big-data', i, i+1);
-                    });
-                }
-            } else {
-                const submitButton = document.getElementById('bd-submit');
-                if (submitButton) {
-                    submitButton.addEventListener('click', () => {
-                        console.log('Submit button clicked');
-                        submitQuiz('big-data');
-                    });
-                }
+        // Navigation buttons - Simple approach
+        for (let i = 1; i <= totalQuestions; i++) {
+            // Next buttons
+            if (i < totalQuestions) {
+                document.getElementById(`bd-next-${i}`).addEventListener('click', function() {
+                    goToQuestion(i + 1);
+                });
             }
             
-            // Previous button
+            // Previous buttons
             if (i > 1) {
-                const prevButton = document.getElementById(`bd-prev-${i}`);
-                if (prevButton) {
-                    prevButton.addEventListener('click', () => {
-                        console.log(`Previous button ${i} clicked`);
-                        navigateQuestion('big-data', i, i-1);
-                    });
-                }
+                document.getElementById(`bd-prev-${i}`).addEventListener('click', function() {
+                    goToQuestion(i - 1);
+                });
             }
         }
         
-        // Function to navigate between questions
-        function navigateQuestion(quizType, current, next) {
-            console.log(`Navigating from ${current} to ${next}`);
-            
+        // Submit button
+        document.getElementById('bd-submit').addEventListener('click', function() {
+            calculateScore();
+        });
+        
+        // Navigation function
+        function goToQuestion(questionNum) {
             // Hide current question
-            const currentQuestion = document.getElementById(`${quizType}-q${current}`);
-            if (currentQuestion) {
-                currentQuestion.classList.remove('active');
-            }
+            document.getElementById(`bd-q${currentQuestion}`).classList.remove('active');
             
-            // Show next question
-            const nextQuestion = document.getElementById(`${quizType}-q${next}`);
-            if (nextQuestion) {
-                nextQuestion.classList.add('active');
-            }
+            // Show new question
+            document.getElementById(`bd-q${questionNum}`).classList.add('active');
             
-            // Update progress bar and counter
-            updateProgress(quizType, next);
+            // Update current question
+            currentQuestion = questionNum;
+            
+            // Update progress
+            updateProgress();
         }
         
-        // Function to update progress
-        function updateProgress(quizType, currentQuestion) {
-            const totalQuestions = 10; // Big Data has 10 questions
+        // Update progress bar
+        function updateProgress() {
             const progressPercentage = (currentQuestion / totalQuestions) * 100;
-            
             document.getElementById('bd-progress').style.width = `${progressPercentage}%`;
             document.getElementById('bd-current').textContent = currentQuestion;
         }
         
-        // Function to submit quiz and calculate score
-        function submitQuiz(quizType) {
+        // Calculate score
+        function calculateScore() {
             let score = 0;
-            const totalQuestions = 10;
             
-            // Define correct answers
-            const bdAnswers = {
+            // Correct answers
+            const correctAnswers = {
                 1: 'A',
-                2: 'B',
+                2: 'B', 
                 3: 'B',
                 5: 'B',
                 7: 'B',
@@ -670,56 +649,56 @@
                 if (i === 4 || i === 6 || i === 10) continue; // Skip text questions
                 
                 const selectedOption = document.querySelector(`#bd-q${i} .option.selected`);
-                const userAnswer = selectedOption ? selectedOption.getAttribute('data-value') : null;
-                
-                if (userAnswer === bdAnswers[i]) {
+                if (selectedOption && selectedOption.getAttribute('data-value') === correctAnswers[i]) {
                     score++;
                 }
             }
             
             // Check text questions (give points for any answer)
-            const textQuestions = [4, 6, 10];
-            textQuestions.forEach(qNum => {
+            const textAnswers = [4, 6, 10];
+            textAnswers.forEach(qNum => {
                 const answer = document.getElementById(`bd-answer-${qNum}`).value.trim();
                 if (answer.length > 0) {
                     score++;
                 }
             });
             
-            // Hide current question and show score
+            // Show score
             document.getElementById('bd-q10').classList.remove('active');
-            document.getElementById('bd-score').style.display = "block";
+            document.getElementById('bd-score').style.display = 'block';
             document.getElementById('bd-score-value').textContent = score;
             
-            // Set score message
+            // Score message
             const percentage = (score / totalQuestions) * 100;
-            let message = "";
+            let message = '';
             if (percentage >= 90) {
-                message = "Excellent work! You have a strong understanding of Big Data Security & Ethics.";
+                message = 'Excellent! You have a strong understanding of Big Data Security & Ethics.';
             } else if (percentage >= 70) {
-                message = "Good job! You have a solid grasp of the material.";
+                message = 'Good job! You have a solid grasp of the material.';
             } else if (percentage >= 50) {
-                message = "Not bad! Review the material to improve your understanding.";
+                message = 'Not bad! Review the material to improve your understanding.';
             } else {
-                message = "Keep studying! Review the material and try again.";
+                message = 'Keep studying! Review the material and try again.';
             }
-            
             document.getElementById('bd-score-message').textContent = message;
         }
         
-        // Function to reset quiz
-        function resetQuiz(quizType) {
-            // Reset all questions to first one
-            for (let i = 1; i <= 10; i++) {
+        // Reset quiz
+        function resetQuiz() {
+            currentQuestion = 1;
+            
+            // Reset all questions
+            for (let i = 1; i <= totalQuestions; i++) {
                 document.getElementById(`bd-q${i}`).classList.remove('active');
                 
-                // Reset inputs
+                // Reset options
                 const options = document.querySelectorAll(`#bd-q${i} .option`);
                 options.forEach(option => {
                     option.classList.remove('selected');
                     option.querySelector('input').checked = false;
                 });
                 
+                // Reset text areas
                 const textAreas = document.querySelectorAll(`#bd-q${i} textarea`);
                 textAreas.forEach(textarea => {
                     textarea.value = '';
@@ -733,7 +712,7 @@
             document.getElementById('bd-score').style.display = 'none';
             
             // Reset progress
-            updateProgress('big-data', 1);
+            updateProgress();
         }
     </script>
 </body>
