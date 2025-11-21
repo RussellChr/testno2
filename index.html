@@ -47,6 +47,58 @@
             margin: 0 auto;
         }
         
+        .quiz-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background-color: #ecf0f1;
+        }
+        
+        .quiz-option {
+            flex: 1;
+            max-width: 300px;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+        }
+        
+        .quiz-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border-color: #3498db;
+        }
+        
+        .quiz-option h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-option p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-btn:hover {
+            background-color: #2980b9;
+        }
+        
         .tab-container {
             display: flex;
             background-color: #34495e;
@@ -228,9 +280,39 @@
             border-color: #3498db;
         }
         
+        .back-to-selection {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .back-to-selection:hover {
+            background-color: #636e72;
+        }
+        
         @media (max-width: 600px) {
             .container {
                 border-radius: 0;
+            }
+            
+            .quiz-selection {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quiz-option {
+                width: 100%;
+                max-width: 100%;
             }
             
             .quiz-section {
@@ -251,308 +333,363 @@
             <p class="description">Test your knowledge on Big Data Security & Ethics and Connectionist AI Challenges</p>
         </header>
         
-        <div class="tab-container">
-            <div class="tab active" data-tab="big-data">Big Data Security & Ethics</div>
-            <div class="tab" data-tab="ai">Connectionist AI Challenges</div>
-        </div>
-        
-        <!-- Big Data Security & Ethics Section -->
-        <div class="quiz-section active" id="big-data-section">
-            <h2 class="section-title">Big Data Security & Ethics</h2>
-            
-            <div class="question">
-                <div class="question-number">Question 1</div>
-                <div class="question-text">Why is securing data at every stage of the Big Data lifecycle important?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="q1" value="A"> A. Vulnerabilities can arise at any point
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q1" value="B"> B. Only old data is at risk
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q1" value="C"> C. Security is only needed during storage
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q1" value="D"> D. Security only matters for data destruction
-                    </label>
-                </div>
-                <div class="feedback"></div>
+        <!-- Quiz Selection Screen -->
+        <div class="quiz-selection" id="quiz-selection">
+            <div class="quiz-option" data-quiz="big-data">
+                <h3>Big Data Security & Ethics</h3>
+                <p>Test your knowledge on data security, privacy, and ethical considerations in Big Data environments.</p>
+                <button class="quiz-btn">Start Big Data Quiz</button>
             </div>
-            
-            <div class="question">
-                <div class="question-number">Question 2</div>
-                <div class="question-text">What is a common security challenge during the data storage phase in Big Data?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="q2" value="A"> A. Data visualization failures
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q2" value="B"> B. Unauthorized access due to weak controls
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q2" value="C"> C. Slow internet speed
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q2" value="D"> D. Insufficient data labeling
-                    </label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 3</div>
-                <div class="question-text">Which security measure helps protect data in transit?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="q3" value="A"> A. Unencrypted hard drives
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q3" value="B"> B. TLS/SSL protocols
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q3" value="C"> C. Role-based access only
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q3" value="D"> D. Paper records
-                    </label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 4</div>
-                <div class="question-text">List two major security threats in Big Data environments.</div>
-                <textarea class="short-answer" name="q4" placeholder="Type your answer here..."></textarea>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 5</div>
-                <div class="question-text">What principle ensures users only have the access necessary for their jobs?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="q5" value="A"> A. Open access policy
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q5" value="B"> B. Least privilege principle
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q5" value="C"> C. Full control configuration
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q5" value="D"> D. API gateway
-                    </label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 6</div>
-                <div class="question-text">Name one example of an "insider threat" in Big Data.</div>
-                <textarea class="short-answer" name="q6" placeholder="Type your answer here..."></textarea>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 7</div>
-                <div class="question-text">Which measure can prevent employees from emailing confidential files outside the company?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="q7" value="A"> A. Distributed denial-of-service defense
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q7" value="B"> B. Data Loss Prevention tools
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q7" value="C"> C. Role-based marketing
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q7" value="D"> D. Large storage arrays
-                    </label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 8</div>
-                <div class="question-text">What is a key ethical principle in Big Data concerning how data is collected and used?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="q8" value="A"> A. Unlimited collection without disclosure
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q8" value="B"> B. Transparency
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q8" value="C"> C. Price-fixing
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q8" value="D"> D. Role rotation
-                    </label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 9</div>
-                <div class="question-text">What should be obtained from users before collecting their personal data?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="q9" value="A"> A. Verbal greetings
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q9" value="B"> B. Informed consent
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q9" value="C"> C. Usage statistics
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="q9" value="D"> D. Encryption keys
-                    </label>
-                </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 10</div>
-                <div class="question-text">Name two best practices for upholding Big Data ethics.</div>
-                <textarea class="short-answer" name="q10" placeholder="Type your answer here..."></textarea>
-                <div class="feedback"></div>
-            </div>
-            
-            <button class="submit-btn" id="submit-big-data">Submit Big Data Quiz</button>
-            <div class="score-container" id="big-data-score">
-                <div class="score">Your Score: <span id="big-data-score-value">0</span>/10</div>
+            <div class="quiz-option" data-quiz="ai">
+                <h3>Connectionist AI Challenges</h3>
+                <p>Explore challenges in neural networks, including black box problems, catastrophic forgetting, and more.</p>
+                <button class="quiz-btn">Start AI Quiz</button>
             </div>
         </div>
         
-        <!-- Connectionist AI Challenges Section -->
-        <div class="quiz-section" id="ai-section">
-            <h2 class="section-title">Connectionist AI Challenges</h2>
-            
-            <div class="question">
-                <div class="question-number">Question 1</div>
-                <div class="question-text">Define the Black Box Problem in connectionist AI and explain why it matters in high-stakes applications. (2–3 sentences)</div>
-                <textarea class="short-answer" name="ai1" placeholder="Type your answer here..."></textarea>
-                <div class="feedback"></div>
+        <!-- Quiz Container (initially hidden) -->
+        <div id="quiz-container" style="display: none;">
+            <div class="tab-container">
+                <div class="tab active" data-tab="big-data">Big Data Security & Ethics</div>
+                <div class="tab" data-tab="ai">Connectionist AI Challenges</div>
             </div>
             
-            <div class="question">
-                <div class="question-number">Question 2</div>
-                <div class="question-text">What is catastrophic forgetting, and what general strategy is commonly proposed to mitigate it in neural networks? (2 sentences)</div>
-                <textarea class="short-answer" name="ai2" placeholder="Type your answer here..."></textarea>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 3</div>
-                <div class="question-text">Briefly describe meta-learning and how it differs from standard supervised learning. (2–3 sentences)</div>
-                <textarea class="short-answer" name="ai3" placeholder="Type your answer here..."></textarea>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 4</div>
-                <div class="question-text">Which approach directly aims to improve interpretability of neural networks by outlining which features or regions influenced a decision?</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="ai4" value="A"> a) Pruning
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai4" value="B"> b) Attention visualization
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai4" value="C"> c) Data augmentation
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai4" value="D"> d) Hardware acceleration
-                    </label>
+            <!-- Big Data Security & Ethics Section -->
+            <div class="quiz-section active" id="big-data-section">
+                <h2 class="section-title">Big Data Security & Ethics</h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 1</div>
+                    <div class="question-text">Why is securing data at every stage of the Big Data lifecycle important?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="A"> A. Vulnerabilities can arise at any point
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="B"> B. Only old data is at risk
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="C"> C. Security is only needed during storage
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="D"> D. Security only matters for data destruction
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
                 </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 5</div>
-                <div class="question-text">Graph Neural Networks (GNNs) are particularly well-suited for:</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="ai5" value="A"> a) Fixed-grid image data
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai5" value="B"> b) Sequential tabular data
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai5" value="C"> c) Graph-structured data with variable connectivity
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai5" value="D"> d) Pure symbolic reasoning
-                    </label>
+                
+                <div class="question">
+                    <div class="question-number">Question 2</div>
+                    <div class="question-text">What is a common security challenge during the data storage phase in Big Data?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="A"> A. Data visualization failures
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="B"> B. Unauthorized access due to weak controls
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="C"> C. Slow internet speed
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="D"> D. Insufficient data labeling
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
                 </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 6</div>
-                <div class="question-text">Hybrid Neuro-Symbolic AI primarily combines:</div>
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="ai6" value="A"> a) Large-scale data and label scarcity
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai6" value="B"> b) Neural pattern recognition with symbolic logical reasoning
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai6" value="C"> c) Hardware-centric optimization with software
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="ai6" value="D"> d) Unsupervised learning with reinforcement learning
-                    </label>
+                
+                <div class="question">
+                    <div class="question-number">Question 3</div>
+                    <div class="question-text">Which security measure helps protect data in transit?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="A"> A. Unencrypted hard drives
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="B"> B. TLS/SSL protocols
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="C"> C. Role-based access only
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="D"> D. Paper records
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
                 </div>
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 7</div>
-                <div class="question-text">True or False: Meta-learning aims to learn a single task extremely well and then generalize to related tasks without any adaptation.</div>
-                <div class="true-false-options">
-                    <div class="true-false-btn" data-value="true">True</div>
-                    <div class="true-false-btn" data-value="false">False</div>
+                
+                <div class="question">
+                    <div class="question-number">Question 4</div>
+                    <div class="question-text">List two major security threats in Big Data environments.</div>
+                    <textarea class="short-answer" name="q4" placeholder="Type your answer here..."></textarea>
+                    <div class="feedback"></div>
                 </div>
-                <input type="hidden" name="ai7" value="">
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 8</div>
-                <div class="question-text">True or False: Energy efficiency in large neural networks is only a concern for researchers and has no impact on real-world deployment.</div>
-                <div class="true-false-options">
-                    <div class="true-false-btn" data-value="true">True</div>
-                    <div class="true-false-btn" data-value="false">False</div>
+                
+                <div class="question">
+                    <div class="question-number">Question 5</div>
+                    <div class="question-text">What principle ensures users only have the access necessary for their jobs?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="A"> A. Open access policy
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="B"> B. Least privilege principle
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="C"> C. Full control configuration
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="D"> D. API gateway
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
                 </div>
-                <input type="hidden" name="ai8" value="">
-                <div class="feedback"></div>
-            </div>
-            
-            <div class="question">
-                <div class="question-number">Question 9</div>
-                <div class="question-text">True or False: Explainable AI (XAI) techniques can fully reveal all internal decision pathways of deep networks without any trade-offs.</div>
-                <div class="true-false-options">
-                    <div class="true-false-btn" data-value="true">True</div>
-                    <div class="true-false-btn" data-value="false">False</div>
+                
+                <div class="question">
+                    <div class="question-number">Question 6</div>
+                    <div class="question-text">Name one example of an "insider threat" in Big Data.</div>
+                    <textarea class="short-answer" name="q6" placeholder="Type your answer here..."></textarea>
+                    <div class="feedback"></div>
                 </div>
-                <input type="hidden" name="ai9" value="">
-                <div class="feedback"></div>
+                
+                <div class="question">
+                    <div class="question-number">Question 7</div>
+                    <div class="question-text">Which measure can prevent employees from emailing confidential files outside the company?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q7" value="A"> A. Distributed denial-of-service defense
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="B"> B. Data Loss Prevention tools
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="C"> C. Role-based marketing
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="D"> D. Large storage arrays
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 8</div>
+                    <div class="question-text">What is a key ethical principle in Big Data concerning how data is collected and used?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q8" value="A"> A. Unlimited collection without disclosure
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="B"> B. Transparency
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="C"> C. Price-fixing
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="D"> D. Role rotation
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 9</div>
+                    <div class="question-text">What should be obtained from users before collecting their personal data?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q9" value="A"> A. Verbal greetings
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="B"> B. Informed consent
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="C"> C. Usage statistics
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="D"> D. Encryption keys
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 10</div>
+                    <div class="question-text">Name two best practices for upholding Big Data ethics.</div>
+                    <textarea class="short-answer" name="q10" placeholder="Type your answer here..."></textarea>
+                    <div class="feedback"></div>
+                </div>
+                
+                <button class="submit-btn" id="submit-big-data">Submit Big Data Quiz</button>
+                <div class="score-container" id="big-data-score">
+                    <div class="score">Your Score: <span id="big-data-score-value">0</span>/10</div>
+                </div>
+                
+                <button class="back-to-selection" id="back-from-big-data">Back to Quiz Selection</button>
             </div>
             
-            <button class="submit-btn" id="submit-ai">Submit AI Quiz</button>
-            <div class="score-container" id="ai-score">
-                <div class="score">Your Score: <span id="ai-score-value">0</span>/9</div>
+            <!-- Connectionist AI Challenges Section -->
+            <div class="quiz-section" id="ai-section">
+                <h2 class="section-title">Connectionist AI Challenges</h2>
+                
+                <div class="question">
+                    <div class="question-number">Question 1</div>
+                    <div class="question-text">Define the Black Box Problem in connectionist AI and explain why it matters in high-stakes applications. (2–3 sentences)</div>
+                    <textarea class="short-answer" name="ai1" placeholder="Type your answer here..."></textarea>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 2</div>
+                    <div class="question-text">What is catastrophic forgetting, and what general strategy is commonly proposed to mitigate it in neural networks? (2 sentences)</div>
+                    <textarea class="short-answer" name="ai2" placeholder="Type your answer here..."></textarea>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 3</div>
+                    <div class="question-text">Briefly describe meta-learning and how it differs from standard supervised learning. (2–3 sentences)</div>
+                    <textarea class="short-answer" name="ai3" placeholder="Type your answer here..."></textarea>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 4</div>
+                    <div class="question-text">Which approach directly aims to improve interpretability of neural networks by outlining which features or regions influenced a decision?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="ai4" value="A"> a) Pruning
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai4" value="B"> b) Attention visualization
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai4" value="C"> c) Data augmentation
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai4" value="D"> d) Hardware acceleration
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 5</div>
+                    <div class="question-text">Graph Neural Networks (GNNs) are particularly well-suited for:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="ai5" value="A"> a) Fixed-grid image data
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai5" value="B"> b) Sequential tabular data
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai5" value="C"> c) Graph-structured data with variable connectivity
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai5" value="D"> d) Pure symbolic reasoning
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 6</div>
+                    <div class="question-text">Hybrid Neuro-Symbolic AI primarily combines:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="ai6" value="A"> a) Large-scale data and label scarcity
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai6" value="B"> b) Neural pattern recognition with symbolic logical reasoning
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai6" value="C"> c) Hardware-centric optimization with software
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="ai6" value="D"> d) Unsupervised learning with reinforcement learning
+                        </label>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 7</div>
+                    <div class="question-text">True or False: Meta-learning aims to learn a single task extremely well and then generalize to related tasks without any adaptation.</div>
+                    <div class="true-false-options">
+                        <div class="true-false-btn" data-value="true">True</div>
+                        <div class="true-false-btn" data-value="false">False</div>
+                    </div>
+                    <input type="hidden" name="ai7" value="">
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 8</div>
+                    <div class="question-text">True or False: Energy efficiency in large neural networks is only a concern for researchers and has no impact on real-world deployment.</div>
+                    <div class="true-false-options">
+                        <div class="true-false-btn" data-value="true">True</div>
+                        <div class="true-false-btn" data-value="false">False</div>
+                    </div>
+                    <input type="hidden" name="ai8" value="">
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-number">Question 9</div>
+                    <div class="question-text">True or False: Explainable AI (XAI) techniques can fully reveal all internal decision pathways of deep networks without any trade-offs.</div>
+                    <div class="true-false-options">
+                        <div class="true-false-btn" data-value="true">True</div>
+                        <div class="true-false-btn" data-value="false">False</div>
+                    </div>
+                    <input type="hidden" name="ai9" value="">
+                    <div class="feedback"></div>
+                </div>
+                
+                <button class="submit-btn" id="submit-ai">Submit AI Quiz</button>
+                <div class="score-container" id="ai-score">
+                    <div class="score">Your Score: <span id="ai-score-value">0</span>/9</div>
+                </div>
+                
+                <button class="back-to-selection" id="back-from-ai">Back to Quiz Selection</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Quiz selection functionality
+        document.querySelectorAll('.quiz-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const quizOption = e.target.closest('.quiz-option');
+                const quizType = quizOption.getAttribute('data-quiz');
+                
+                // Hide selection screen and show quiz container
+                document.getElementById('quiz-selection').style.display = 'none';
+                document.getElementById('quiz-container').style.display = 'block';
+                
+                // Activate the selected quiz tab
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('data-tab') === quizType) {
+                        tab.classList.add('active');
+                    }
+                });
+                
+                // Show the selected quiz section
+                document.querySelectorAll('.quiz-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(`${quizType}-section`).classList.add('active');
+            });
+        });
+        
+        // Back to selection functionality
+        document.querySelectorAll('.back-to-selection').forEach(button => {
+            button.addEventListener('click', () => {
+                document.getElementById('quiz-selection').style.display = 'flex';
+                document.getElementById('quiz-container').style.display = 'none';
+            });
+        });
+        
         // Tab switching functionality
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -611,7 +748,7 @@
                 if (i === 4 || i === 6 || i === 10) continue; // Skip text questions for now
                 
                 const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                const feedback = document.querySelector(`.question:nth-child(${i}) .feedback`);
+                const feedback = document.querySelector(`#big-data-section .question:nth-child(${i}) .feedback`);
                 
                 if (selected && selected.value === answers[`q${i}`]) {
                     score++;
@@ -627,32 +764,44 @@
             
             // Check text questions (simplified check for demo)
             const textAnswers = {
-                q4: document.querySelector('textarea[name="q4"]').value.toLowerCase(),
-                q6: document.querySelector('textarea[name="q6"]').value.toLowerCase(),
-                q10: document.querySelector('textarea[name="q10"]').value.toLowerCase()
+                q4: document.querySelector('#big-data-section textarea[name="q4"]').value.toLowerCase(),
+                q6: document.querySelector('#big-data-section textarea[name="q6"]').value.toLowerCase(),
+                q10: document.querySelector('#big-data-section textarea[name="q10"]').value.toLowerCase()
             };
             
             // For demo purposes, we'll give points if the textarea isn't empty
             // In a real implementation, you'd want more sophisticated checking
             if (textAnswers.q4.length > 10) {
                 score++;
-                document.querySelector('.question:nth-child(4) .feedback').textContent = "Good answer!";
-                document.querySelector('.question:nth-child(4) .feedback').className = "feedback correct";
-                document.querySelector('.question:nth-child(4) .feedback').style.display = "block";
+                document.querySelector('#big-data-section .question:nth-child(4) .feedback').textContent = "Good answer! Examples: Ransomware attacks, data breaches, unauthorized access";
+                document.querySelector('#big-data-section .question:nth-child(4) .feedback').className = "feedback correct";
+                document.querySelector('#big-data-section .question:nth-child(4) .feedback').style.display = "block";
+            } else {
+                document.querySelector('#big-data-section .question:nth-child(4) .feedback').textContent = "Please provide a more detailed answer. Examples: Ransomware attacks, data breaches, unauthorized access";
+                document.querySelector('#big-data-section .question:nth-child(4) .feedback').className = "feedback incorrect";
+                document.querySelector('#big-data-section .question:nth-child(4) .feedback').style.display = "block";
             }
             
             if (textAnswers.q6.length > 10) {
                 score++;
-                document.querySelector('.question:nth-child(6) .feedback').textContent = "Good answer!";
-                document.querySelector('.question:nth-child(6) .feedback').className = "feedback correct";
-                document.querySelector('.question:nth-child(6) .feedback').style.display = "block";
+                document.querySelector('#big-data-section .question:nth-child(6) .feedback').textContent = "Good answer! Example: A disgruntled employee leaking confidential data";
+                document.querySelector('#big-data-section .question:nth-child(6) .feedback').className = "feedback correct";
+                document.querySelector('#big-data-section .question:nth-child(6) .feedback').style.display = "block";
+            } else {
+                document.querySelector('#big-data-section .question:nth-child(6) .feedback').textContent = "Please provide a more detailed answer. Example: A disgruntled employee leaking confidential data";
+                document.querySelector('#big-data-section .question:nth-child(6) .feedback').className = "feedback incorrect";
+                document.querySelector('#big-data-section .question:nth-child(6) .feedback').style.display = "block";
             }
             
             if (textAnswers.q10.length > 10) {
                 score++;
-                document.querySelector('.question:nth-child(10) .feedback').textContent = "Good answer!";
-                document.querySelector('.question:nth-child(10) .feedback').className = "feedback correct";
-                document.querySelector('.question:nth-child(10) .feedback').style.display = "block";
+                document.querySelector('#big-data-section .question:nth-child(10) .feedback').textContent = "Good answer! Examples: Privacy by design, regular audits for compliance and fairness";
+                document.querySelector('#big-data-section .question:nth-child(10) .feedback').className = "feedback correct";
+                document.querySelector('#big-data-section .question:nth-child(10) .feedback').style.display = "block";
+            } else {
+                document.querySelector('#big-data-section .question:nth-child(10) .feedback').textContent = "Please provide a more detailed answer. Examples: Privacy by design, regular audits for compliance and fairness";
+                document.querySelector('#big-data-section .question:nth-child(10) .feedback').className = "feedback incorrect";
+                document.querySelector('#big-data-section .question:nth-child(10) .feedback').style.display = "block";
             }
             
             // Display score
@@ -692,7 +841,7 @@
             
             // Check true/false questions
             for (let i = 7; i <= 9; i++) {
-                const selected = document.querySelector(`input[name="ai${i}"]`).value;
+                const selected = document.querySelector(`#ai-section input[name="ai${i}"]`).value;
                 const feedback = document.querySelector(`#ai-section .question:nth-child(${i}) .feedback`);
                 
                 if (selected === answers[`ai${i}`]) {
@@ -709,7 +858,7 @@
             
             // For text questions, give points if not empty (simplified for demo)
             for (let i = 1; i <= 3; i++) {
-                const answer = document.querySelector(`textarea[name="ai${i}"]`).value;
+                const answer = document.querySelector(`#ai-section textarea[name="ai${i}"]`).value;
                 const feedback = document.querySelector(`#ai-section .question:nth-child(${i}) .feedback`);
                 
                 if (answer.length > 20) {
