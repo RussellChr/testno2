@@ -26,7 +26,8 @@
             background-color: #f5f7fa;
             color: var(--dark-color);
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         
         .container {
@@ -56,28 +57,23 @@
         }
         
         .quiz-section {
-            /* CHANGED: Use visibility and position instead of display */
-            visibility: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+            /* FIX: Use opacity and positioning instead of display */
             opacity: 0;
-            transform: translateX(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease;
             background-color: white;
             border-radius: 10px;
-            padding: 25px;
             margin-bottom: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .quiz-section.active {
-            /* CHANGED: Make active section visible and properly positioned */
-            visibility: visible;
-            position: relative;
+            /* FIX: Make active section visible and scrollable */
             opacity: 1;
-            transform: translateX(0);
+            height: auto;
+            overflow: visible;
+            padding: 25px;
         }
         
         .section-title {
